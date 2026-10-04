@@ -1,0 +1,604 @@
+{
+  "activity": {
+    "target": "activity",
+    "target_definition": "y = 6 - log10(MIC[uM]); minimum MIC across organisms",
+    "direction": "higher = more active (better)",
+    "n_sequences": 2328,
+    "n_features": 35,
+    "feature_config": {
+      "use_composition": true,
+      "use_dipeptide": false,
+      "use_physchem": true,
+      "moment_window": 11,
+      "moment_angle_deg": 100.0
+    },
+    "featurize_seconds": 0.16,
+    "redundancy": {
+      "n_sequences": 2328,
+      "n_unique_sequences": 2328,
+      "n_exact_duplicates": 0,
+      "identity_threshold": 0.7,
+      "n_clusters": 922,
+      "largest_cluster_size": 43,
+      "mean_cluster_size": 2.524945770065076,
+      "n_singleton_clusters": 530,
+      "redundancy_ratio": 2.524945770065076
+    },
+    "seed": 20261004,
+    "xgb_params": {
+      "n_estimators": 400,
+      "max_depth": 4,
+      "learning_rate": 0.05,
+      "subsample": 0.8,
+      "colsample_bytree": 0.6,
+      "min_child_weight": 3,
+      "reg_lambda": 1.0,
+      "reg_alpha": 0.0,
+      "objective": "reg:squarederror",
+      "tree_method": "hist",
+      "n_jobs": 4
+    },
+    "model_selection": {
+      "selected_on": "validation split only; test never consulted",
+      "note": "features=comp_physchem, params=default; selected on validation RMSE (0.9652 vs mean-baseline 1.0694)",
+      "sweep_report": "results/experiments/model_selection_sweep.json"
+    },
+    "split_cluster": {
+      "strategy": "cluster_level_identity",
+      "n_clusters": 922,
+      "identity_threshold": 0.7,
+      "n_train": 1624,
+      "n_val": 233,
+      "n_test": 471,
+      "train_y_mean": 5.52744518990642,
+      "train_y_std": 0.8713036302373173,
+      "val_y_mean": 5.5202660534199985,
+      "val_y_std": 1.0693719470660514,
+      "test_y_mean": 5.589717099333319,
+      "test_y_std": 0.9039273219580064
+    },
+    "metrics_cluster_split": {
+      "train": {
+        "n": 1624,
+        "mae": 0.25798190092024886,
+        "rmse": 0.35074655733366567,
+        "y_true_std": 0.8713036302373173,
+        "r2": 0.8379504658006286,
+        "pearson_r": 0.9293014500036133,
+        "spearman_rho": 0.907378817795488,
+        "rmse_mean_baseline": 0.8713036302373173
+      },
+      "val": {
+        "n": 233,
+        "mae": 0.659276197617942,
+        "rmse": 0.9651942691338858,
+        "y_true_std": 1.0693719470660514,
+        "r2": 0.18534843685862878,
+        "pearson_r": 0.43657882187542574,
+        "spearman_rho": 0.4468135662638641,
+        "rmse_mean_baseline": 1.0693719470660514
+      },
+      "test": {
+        "n": 471,
+        "mae": 0.5494034921821691,
+        "rmse": 0.7589591104758683,
+        "y_true_std": 0.9039273219580064,
+        "r2": 0.2950314704377057,
+        "pearson_r": 0.5435068605687098,
+        "spearman_rho": 0.575823641302631,
+        "rmse_mean_baseline": 0.9039273219580064
+      }
+    },
+    "split_random": {
+      "strategy": "random_INVALID_baseline",
+      "n_clusters": 2328,
+      "identity_threshold": null,
+      "n_train": 1629,
+      "n_val": 233,
+      "n_test": 466,
+      "train_y_mean": 5.5503961834467646,
+      "train_y_std": 0.9076653520871368,
+      "val_y_mean": 5.428402945571382,
+      "val_y_std": 0.8356887791071995,
+      "test_y_mean": 5.556086831519242,
+      "test_y_std": 0.9003057320843677
+    },
+    "metrics_random_split": {
+      "test": {
+        "n": 466,
+        "mae": 0.4562703099820169,
+        "rmse": 0.6826103894933656,
+        "y_true_std": 0.9003057320843677,
+        "r2": 0.42513514595512036,
+        "pearson_r": 0.6545485279022483,
+        "spearman_rho": 0.695979611874778,
+        "rmse_mean_baseline": 0.9003057320843677
+      },
+      "WARNING": "random split leaks near-duplicate sequences across train/test and is NOT a valid estimate of generalisation; reported only to quantify the optimism gap"
+    },
+    "optimism_gap_rmse": {
+      "cluster_split_test_rmse": 0.7589591104758683,
+      "random_split_test_rmse": 0.6826103894933656,
+      "absolute_difference": 0.07634872098250267,
+      "interpretation": "a positive difference means the random split understates error, i.e. reports optimistic performance"
+    },
+    "cross_validation": {
+      "scheme": "GroupKFold(n_splits=5) grouped by identity cluster",
+      "fold_metrics": [
+        {
+          "n": 466,
+          "mae": 0.6296464500373354,
+          "rmse": 0.8770700528112058,
+          "y_true_std": 1.071234136799864,
+          "r2": 0.32965286540974437,
+          "pearson_r": 0.6032928640267332,
+          "spearman_rho": 0.6341093884692804,
+          "rmse_mean_baseline": 1.071234136799864
+        },
+        {
+          "n": 466,
+          "mae": 0.5633163843959319,
+          "rmse": 0.7969572270759491,
+          "y_true_std": 0.8562779702033216,
+          "r2": 0.1337555107055899,
+          "pearson_r": 0.40889282953239103,
+          "spearman_rho": 0.41575452634001536,
+          "rmse_mean_baseline": 0.8562779702033216
+        },
+        {
+          "n": 466,
+          "mae": 0.563869744679688,
+          "rmse": 0.7520468514039724,
+          "y_true_std": 0.8406484908163212,
+          "r2": 0.19968506890800264,
+          "pearson_r": 0.46544769665065244,
+          "spearman_rho": 0.5214999437149369,
+          "rmse_mean_baseline": 0.8406484908163212
+        },
+        {
+          "n": 465,
+          "mae": 0.5942506916261584,
+          "rmse": 0.8117127213684457,
+          "y_true_std": 0.8554953227695578,
+          "r2": 0.09973694933842259,
+          "pearson_r": 0.38331927013771366,
+          "spearman_rho": 0.3519761277167474,
+          "rmse_mean_baseline": 0.8554953227695578
+        },
+        {
+          "n": 465,
+          "mae": 0.5351586916946663,
+          "rmse": 0.7353224664523452,
+          "y_true_std": 0.8411342708653671,
+          "r2": 0.2357683592943739,
+          "pearson_r": 0.48832640631901025,
+          "spearman_rho": 0.4496781519294889,
+          "rmse_mean_baseline": 0.8411342708653671
+        }
+      ],
+      "mae_mean": 0.5772483924867561,
+      "mae_std": 0.0321846752056178,
+      "rmse_mean": 0.7946218638223836,
+      "rmse_std": 0.04984838093980588,
+      "spearman_mean": 0.47460362763409386
+    },
+    "final_model": {
+      "fitted_on": "cluster-split train + validation",
+      "n_fit": 1857,
+      "test_held_out": true,
+      "metrics_heldout_test": {
+        "n": 471,
+        "mae": 0.5554477884301251,
+        "rmse": 0.7596587003493747,
+        "y_true_std": 0.9039273219580064,
+        "r2": 0.29373122608383817,
+        "pearson_r": 0.5424761561950089,
+        "spearman_rho": 0.5591529032493037,
+        "rmse_mean_baseline": 0.9039273219580064
+      }
+    },
+    "bootstrap_ensemble": {
+      "n_models": 10,
+      "purpose": "model/prediction uncertainty -- NOT experimental error",
+      "mean_predictive_std_on_test": 0.1967676430940628,
+      "metrics_ensemble_mean_test": {
+        "n": 471,
+        "mae": 0.5537564512307336,
+        "rmse": 0.7686372636175737,
+        "y_true_std": 0.9039273219580064,
+        "r2": 0.27693749144704405,
+        "pearson_r": 0.5365083090065398,
+        "spearman_rho": 0.5690138462729593,
+        "rmse_mean_baseline": 0.9039273219580064
+      }
+    },
+    "normalization": {
+      "mu": 5.525681658849064,
+      "sigma": 0.6791255765398592,
+      "source": "mean/std of activity model predictions on the training split (n=1857); frozen at training time"
+    },
+    "top_features": [
+      {
+        "feature": "net_charge_ph70",
+        "gain_importance": 0.07111932337284088
+      },
+      {
+        "feature": "log_length",
+        "gain_importance": 0.058452822268009186
+      },
+      {
+        "feature": "molecular_weight",
+        "gain_importance": 0.0458320789039135
+      },
+      {
+        "feature": "comp_M",
+        "gain_importance": 0.04025428742170334
+      },
+      {
+        "feature": "comp_C",
+        "gain_importance": 0.03776473179459572
+      },
+      {
+        "feature": "comp_Y",
+        "gain_importance": 0.03649690002202988
+      },
+      {
+        "feature": "frac_negative_residues",
+        "gain_importance": 0.034941866993904114
+      },
+      {
+        "feature": "comp_Q",
+        "gain_importance": 0.03398662060499191
+      },
+      {
+        "feature": "net_charge_ph74",
+        "gain_importance": 0.03357758745551109
+      },
+      {
+        "feature": "comp_V",
+        "gain_importance": 0.032748375087976456
+      },
+      {
+        "feature": "charge_per_residue",
+        "gain_importance": 0.0319121852517128
+      },
+      {
+        "feature": "isoelectric_point",
+        "gain_importance": 0.03132646158337593
+      },
+      {
+        "feature": "comp_R",
+        "gain_importance": 0.029235882684588432
+      },
+      {
+        "feature": "aromaticity",
+        "gain_importance": 0.029089201241731644
+      },
+      {
+        "feature": "comp_W",
+        "gain_importance": 0.026427246630191803
+      },
+      {
+        "feature": "mean_polarity",
+        "gain_importance": 0.02616652473807335
+      },
+      {
+        "feature": "length",
+        "gain_importance": 0.02568809501826763
+      },
+      {
+        "feature": "comp_D",
+        "gain_importance": 0.025045907124876976
+      },
+      {
+        "feature": "aliphatic_index",
+        "gain_importance": 0.024473853409290314
+      },
+      {
+        "feature": "comp_G",
+        "gain_importance": 0.02442697435617447
+      }
+    ]
+  },
+  "hemolysis": {
+    "target": "hemolysis",
+    "target_definition": "y = 6 - log10(D50[uM]); 50%-effect hemolytic dose",
+    "direction": "higher = more hemolytic (worse)",
+    "n_sequences": 916,
+    "n_features": 35,
+    "feature_config": {
+      "use_composition": true,
+      "use_dipeptide": false,
+      "use_physchem": true,
+      "moment_window": 11,
+      "moment_angle_deg": 100.0
+    },
+    "featurize_seconds": 0.06,
+    "redundancy": {
+      "n_sequences": 916,
+      "n_unique_sequences": 916,
+      "n_exact_duplicates": 0,
+      "identity_threshold": 0.7,
+      "n_clusters": 301,
+      "largest_cluster_size": 29,
+      "mean_cluster_size": 3.043189368770764,
+      "n_singleton_clusters": 158,
+      "redundancy_ratio": 3.043189368770764
+    },
+    "seed": 20261004,
+    "xgb_params": {
+      "n_estimators": 400,
+      "max_depth": 3,
+      "learning_rate": 0.03,
+      "subsample": 0.8,
+      "colsample_bytree": 0.7,
+      "min_child_weight": 8,
+      "reg_lambda": 3.0,
+      "reg_alpha": 0.0,
+      "objective": "reg:squarederror",
+      "tree_method": "hist",
+      "n_jobs": 4
+    },
+    "model_selection": {
+      "selected_on": "validation split only; test never consulted",
+      "note": "features=comp_physchem, params=shallow_reg; selected on validation RMSE (0.7236 vs mean-baseline 0.8492). Lower capacity was necessary: n=916 with 435 features gave a model no better than the mean.",
+      "sweep_report": "results/experiments/model_selection_sweep.json"
+    },
+    "split_cluster": {
+      "strategy": "cluster_level_identity",
+      "n_clusters": 301,
+      "identity_threshold": 0.7,
+      "n_train": 640,
+      "n_val": 92,
+      "n_test": 184,
+      "train_y_mean": 4.2923816590211015,
+      "train_y_std": 0.8949282028935409,
+      "val_y_mean": 4.334314953305939,
+      "val_y_std": 0.8491691550146437,
+      "test_y_mean": 4.217883408199917,
+      "test_y_std": 0.7456523052868776
+    },
+    "metrics_cluster_split": {
+      "train": {
+        "n": 640,
+        "mae": 0.29153871720571634,
+        "rmse": 0.4166079768971894,
+        "y_true_std": 0.8949282028935409,
+        "r2": 0.7832900893655422,
+        "pearson_r": 0.8955590193209915,
+        "spearman_rho": 0.875557092087816,
+        "rmse_mean_baseline": 0.8949282028935409
+      },
+      "val": {
+        "n": 92,
+        "mae": 0.5394383320135513,
+        "rmse": 0.7236179714849493,
+        "y_true_std": 0.8491691550146437,
+        "r2": 0.2738434361174804,
+        "pearson_r": 0.5792614528250751,
+        "spearman_rho": 0.6164368673177034,
+        "rmse_mean_baseline": 0.8491691550146437
+      },
+      "test": {
+        "n": 184,
+        "mae": 0.48986593245331717,
+        "rmse": 0.7137020682023227,
+        "y_true_std": 0.7456523052868776,
+        "r2": 0.08386140213242244,
+        "pearson_r": 0.36299108532848773,
+        "spearman_rho": 0.41261515684139444,
+        "rmse_mean_baseline": 0.7456523052868776
+      }
+    },
+    "split_random": {
+      "strategy": "random_INVALID_baseline",
+      "n_clusters": 916,
+      "identity_threshold": null,
+      "n_train": 641,
+      "n_val": 92,
+      "n_test": 183,
+      "train_y_mean": 4.29102889451834,
+      "train_y_std": 0.8828422656133316,
+      "val_y_mean": 4.168537188127996,
+      "val_y_std": 0.7003995558610114,
+      "test_y_mean": 4.305556513073246,
+      "test_y_std": 0.862778545358413
+    },
+    "metrics_random_split": {
+      "test": {
+        "n": 183,
+        "mae": 0.46553114049982247,
+        "rmse": 0.6356715008809047,
+        "y_true_std": 0.862778545358413,
+        "r2": 0.45716629166232226,
+        "pearson_r": 0.6793400969815206,
+        "spearman_rho": 0.5895751992932763,
+        "rmse_mean_baseline": 0.862778545358413
+      },
+      "WARNING": "random split leaks near-duplicate sequences across train/test and is NOT a valid estimate of generalisation; reported only to quantify the optimism gap"
+    },
+    "optimism_gap_rmse": {
+      "cluster_split_test_rmse": 0.7137020682023227,
+      "random_split_test_rmse": 0.6356715008809047,
+      "absolute_difference": 0.078030567321418,
+      "interpretation": "a positive difference means the random split understates error, i.e. reports optimistic performance"
+    },
+    "cross_validation": {
+      "scheme": "GroupKFold(n_splits=5) grouped by identity cluster",
+      "fold_metrics": [
+        {
+          "n": 184,
+          "mae": 0.4916043367367891,
+          "rmse": 0.6984645460414493,
+          "y_true_std": 0.7782527850541914,
+          "r2": 0.19453371690082544,
+          "pearson_r": 0.461292012992585,
+          "spearman_rho": 0.48240902106723393,
+          "rmse_mean_baseline": 0.7782527850541914
+        },
+        {
+          "n": 183,
+          "mae": 0.5445786208842638,
+          "rmse": 0.7125173581808231,
+          "y_true_std": 0.8821145366483202,
+          "r2": 0.3475594578194314,
+          "pearson_r": 0.6057689229971231,
+          "spearman_rho": 0.44826466268420845,
+          "rmse_mean_baseline": 0.8821145366483202
+        },
+        {
+          "n": 183,
+          "mae": 0.597364469230615,
+          "rmse": 0.7850269885789675,
+          "y_true_std": 1.0061906757968289,
+          "r2": 0.39129257622157454,
+          "pearson_r": 0.6288903575813125,
+          "spearman_rho": 0.55412692357967,
+          "rmse_mean_baseline": 1.0061906757968289
+        },
+        {
+          "n": 183,
+          "mae": 0.5357900847796689,
+          "rmse": 0.7621325551455704,
+          "y_true_std": 0.7857108232130507,
+          "r2": 0.05911714381189026,
+          "pearson_r": 0.352531109457964,
+          "spearman_rho": 0.4340391621502093,
+          "rmse_mean_baseline": 0.7857108232130507
+        },
+        {
+          "n": 183,
+          "mae": 0.573292464078392,
+          "rmse": 0.7815678694836121,
+          "y_true_std": 0.8208088433637991,
+          "r2": 0.09332980279870073,
+          "pearson_r": 0.3409474136291549,
+          "spearman_rho": 0.35582788276047095,
+          "rmse_mean_baseline": 0.8208088433637991
+        }
+      ],
+      "mae_mean": 0.5485259951419458,
+      "mae_std": 0.03582299514772341,
+      "rmse_mean": 0.7479418634860844,
+      "rmse_std": 0.035805840389285234,
+      "spearman_mean": 0.4549335304483585
+    },
+    "final_model": {
+      "fitted_on": "cluster-split train + validation",
+      "n_fit": 732,
+      "test_held_out": true,
+      "metrics_heldout_test": {
+        "n": 184,
+        "mae": 0.500208835868485,
+        "rmse": 0.7197889659123321,
+        "y_true_std": 0.7456523052868776,
+        "r2": 0.06816795839572265,
+        "pearson_r": 0.3774446952706179,
+        "spearman_rho": 0.42277269582669436,
+        "rmse_mean_baseline": 0.7456523052868776
+      }
+    },
+    "bootstrap_ensemble": {
+      "n_models": 10,
+      "purpose": "model/prediction uncertainty -- NOT experimental error",
+      "mean_predictive_std_on_test": 0.16287465393543243,
+      "metrics_ensemble_mean_test": {
+        "n": 184,
+        "mae": 0.49132695139845417,
+        "rmse": 0.7215956422737165,
+        "y_true_std": 0.7456523052868776,
+        "r2": 0.06348427518993349,
+        "pearson_r": 0.3488793380189068,
+        "spearman_rho": 0.4045586755802297,
+        "rmse_mean_baseline": 0.7456523052868776
+      }
+    },
+    "normalization": {
+      "mu": 4.296857274620911,
+      "sigma": 0.6631501450469323,
+      "source": "mean/std of hemolysis model predictions on the training split (n=732); frozen at training time"
+    },
+    "top_features": [
+      {
+        "feature": "comp_C",
+        "gain_importance": 0.11387305706739426
+      },
+      {
+        "feature": "log_length",
+        "gain_importance": 0.06684012711048126
+      },
+      {
+        "feature": "comp_Y",
+        "gain_importance": 0.060547828674316406
+      },
+      {
+        "feature": "comp_R",
+        "gain_importance": 0.05367983505129814
+      },
+      {
+        "feature": "length",
+        "gain_importance": 0.0399266816675663
+      },
+      {
+        "feature": "mean_polarity",
+        "gain_importance": 0.03949659317731857
+      },
+      {
+        "feature": "isoelectric_point",
+        "gain_importance": 0.033811673521995544
+      },
+      {
+        "feature": "comp_L",
+        "gain_importance": 0.033329419791698456
+      },
+      {
+        "feature": "comp_D",
+        "gain_importance": 0.03226861357688904
+      },
+      {
+        "feature": "comp_M",
+        "gain_importance": 0.030725834891200066
+      },
+      {
+        "feature": "comp_Q",
+        "gain_importance": 0.028941204771399498
+      },
+      {
+        "feature": "molecular_weight",
+        "gain_importance": 0.028137793764472008
+      },
+      {
+        "feature": "comp_K",
+        "gain_importance": 0.026988372206687927
+      },
+      {
+        "feature": "hydrophobic_moment_x_charge",
+        "gain_importance": 0.02587985061109066
+      },
+      {
+        "feature": "comp_I",
+        "gain_importance": 0.025844410061836243
+      },
+      {
+        "feature": "mean_hydrophobicity_kd",
+        "gain_importance": 0.024894604459404945
+      },
+      {
+        "feature": "net_charge_ph70",
+        "gain_importance": 0.024577906355261803
+      },
+      {
+        "feature": "comp_W",
+        "gain_importance": 0.024288009852170944
+      },
+      {
+        "feature": "charge_per_residue",
+        "gain_importance": 0.022737277671694756
+      },
+      {
+        "feature": "net_charge_ph74",
+        "gain_importance": 0.021960493177175522
+      }
+    ]
+  }
+}

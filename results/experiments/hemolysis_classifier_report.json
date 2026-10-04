@@ -1,0 +1,107 @@
+{
+  "status": "evaluated",
+  "purpose": "independent cross-check on the hemolysis REGRESSION, using the experimenters' own stated determination as the label rather than any threshold applied to a numeric dose",
+  "n_sequences": 385,
+  "class_balance": {
+    "non_hemolytic": 169,
+    "hemolytic": 216
+  },
+  "features": {
+    "use_composition": true,
+    "use_dipeptide": false,
+    "use_physchem": true,
+    "moment_window": 11,
+    "moment_angle_deg": 100.0
+  },
+  "redundancy": {
+    "n_sequences": 385,
+    "n_unique_sequences": 385,
+    "n_exact_duplicates": 0,
+    "identity_threshold": 0.7,
+    "n_clusters": 228,
+    "largest_cluster_size": 13,
+    "mean_cluster_size": 1.6885964912280702,
+    "n_singleton_clusters": 154,
+    "redundancy_ratio": 1.6885964912280702
+  },
+  "cv_scheme": "StratifiedGroupKFold(n_splits=5) grouped by identity cluster",
+  "out_of_fold_metrics": {
+    "n": 385,
+    "n_positive": 216,
+    "accuracy": 0.6857142857142857,
+    "balanced_accuracy": 0.6716250273942581,
+    "f1": 0.737527114967462,
+    "mcc": 0.35410640568223656,
+    "majority_class_accuracy": 0.561038961038961,
+    "roc_auc": 0.7673131711593251,
+    "beats_majority_baseline": true
+  },
+  "fold_metrics": [
+    {
+      "n": 76,
+      "n_positive": 43,
+      "accuracy": 0.7631578947368421,
+      "balanced_accuracy": 0.751937984496124,
+      "f1": 0.8,
+      "mcc": 0.5141228616029305,
+      "majority_class_accuracy": 0.5657894736842105,
+      "roc_auc": 0.7935165609584214,
+      "beats_majority_baseline": true
+    },
+    {
+      "n": 79,
+      "n_positive": 44,
+      "accuracy": 0.6455696202531646,
+      "balanced_accuracy": 0.6321428571428571,
+      "f1": 0.7021276595744681,
+      "mcc": 0.27236421572932856,
+      "majority_class_accuracy": 0.5569620253164557,
+      "roc_auc": 0.7422077922077922,
+      "beats_majority_baseline": true
+    },
+    {
+      "n": 77,
+      "n_positive": 43,
+      "accuracy": 0.6363636363636364,
+      "balanced_accuracy": 0.6159370725034199,
+      "f1": 0.7083333333333334,
+      "mcc": 0.24858931420368188,
+      "majority_class_accuracy": 0.5584415584415584,
+      "roc_auc": 0.7352941176470588,
+      "beats_majority_baseline": true
+    },
+    {
+      "n": 77,
+      "n_positive": 43,
+      "accuracy": 0.7532467532467533,
+      "balanced_accuracy": 0.7482900136798906,
+      "f1": 0.7816091954022989,
+      "mcc": 0.4982870795835374,
+      "majority_class_accuracy": 0.5584415584415584,
+      "roc_auc": 0.8324213406292749,
+      "beats_majority_baseline": true
+    },
+    {
+      "n": 76,
+      "n_positive": 43,
+      "accuracy": 0.631578947368421,
+      "balanced_accuracy": 0.6109936575052854,
+      "f1": 0.7021276595744681,
+      "mcc": 0.23418779832639564,
+      "majority_class_accuracy": 0.5657894736842105,
+      "roc_auc": 0.7145877378435518,
+      "beats_majority_baseline": true
+    }
+  ],
+  "balanced_accuracy_std": 0.06428618435834162,
+  "model_path": "models/hemolysis_classifier.json",
+  "agreement_with_regression": {
+    "status": "evaluated",
+    "n_sequences": 385,
+    "pearson_r": 0.19762458060430385,
+    "spearman_rho": 0.20923903557929968,
+    "expected_sign": "positive",
+    "agrees": true,
+    "caveat": "the classifier was trained on these sequences, so this measures whether the two label definitions describe the same underlying property -- it is NOT an out-of-sample performance estimate for either model"
+  }
+}

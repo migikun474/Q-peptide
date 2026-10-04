@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.env.local
+
+# Data and artefacts
+# Raw downloads are reproducible from backend/data/download.py and are not committed.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+models/*
+!models/.gitkeep
+results/experiments/api_runs/
+
+# Secrets -- never commit credentials
+.env
+.env.*
+!.env.example
+
+# Notebooks and scratch
+.ipynb_checkpoints/
+frontend/public/_*.html
+
+# OS / editors
+.DS_Store
+*.swp
+.idea/
+.vscode/

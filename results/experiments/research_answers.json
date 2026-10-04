@@ -1,0 +1,475 @@
+{
+  "Q1_biological_optimization": {
+    "question": "Does the optimized candidate have a better model-predicted activity/hemolysis trade-off than the parent?",
+    "K2": {
+      "best_delta_score_vs_parent": 0.9577499214917207,
+      "n_candidates_dominating_parent": 6,
+      "best_candidate": "GIGKFLHSAKKFGKYFYGEIMNS",
+      "best_mutations": [
+        "A15Y",
+        "V17Y"
+      ]
+    },
+    "K3": {
+      "best_delta_score_vs_parent": 0.9577499214917207,
+      "n_candidates_dominating_parent": 12,
+      "best_candidate": "GIGKFLHSAKKFGKYFYGEIMNS",
+      "best_mutations": [
+        "A15Y",
+        "V17Y"
+      ]
+    },
+    "caveat": "'better' here means a higher MODEL-PREDICTED score. The hemolysis model is the weaker of the two (see the ML report), so this answer is only as good as that model. No experimental claim is made."
+  },
+  "Q2_qubo_validity": {
+    "question": "Does the second-order QUBO reproduce the local ML mutation landscape sufficiently well?",
+    "exact_regime": "0, 1 and 2 mutations: exact by construction",
+    "K2_verdict": {
+      "fidelity_within_fixed_mutation_count": "EXACT: the budget keeps every feasible selection inside the regime where the surrogate reproduces the ML score identically.",
+      "end_to_end_outcome": "CORRECT, and for an understood reason: the QUBO optimum is the true best feasible candidate, and it selects only 2 mutation(s), which is inside the surrogate's exact regime. This is a property of this instance, not a guarantee -- had the true optimum required 3 or more mutations, the poor fidelity above would have been load-bearing.",
+      "detail": [],
+      "banding": "top-pick percentile: >=80 GOOD, >=60 WEAK, >=40 MEDIOCRE, <40 POOR. 50 is what random selection within that mutation count would achieve.",
+      "consequence": "the optimisation machinery (QUBO construction, Ising mapping, exact and QAOA solvers) is verified correct independently of this; what is measured here is whether the QUBO faithfully represents the ML landscape, which is a separate question. Because fidelity degrades at 3+ mutations, final candidate ranking is taken from direct ML re-scoring rather than from QUBO energy.",
+      "validity_regime": "K <= 2: the QUBO is an exact representation of the ML landscape. K >= 3: the QUBO is a local approximation whose within-size ranking is unreliable for these models."
+    },
+    "K3_verdict": {
+      "fidelity_within_fixed_mutation_count": "MEDIOCRE: within a fixed mutation count of 3 or more, the surrogate's preferred selection lands around the middle of the true ranking, i.e. roughly what picking at random would achieve. The quadratic model carries little usable signal at that size.",
+      "end_to_end_outcome": "CORRECT, and for an understood reason: the QUBO optimum is the true best feasible candidate, and it selects only 2 mutation(s), which is inside the surrogate's exact regime. This is a property of this instance, not a guarantee -- had the true optimum required 3 or more mutations, the poor fidelity above would have been load-bearing.",
+      "detail": [
+        "k=3: Spearman=0.516, surrogate's top pick ranks 164/316 by true ML score"
+      ],
+      "banding": "top-pick percentile: >=80 GOOD, >=60 WEAK, >=40 MEDIOCRE, <40 POOR. 50 is what random selection within that mutation count would achieve.",
+      "consequence": "the optimisation machinery (QUBO construction, Ising mapping, exact and QAOA solvers) is verified correct independently of this; what is measured here is whether the QUBO faithfully represents the ML landscape, which is a separate question. Because fidelity degrades at 3+ mutations, final candidate ranking is taken from direct ML re-scoring rather than from QUBO energy.",
+      "validity_regime": "K <= 2: the QUBO is an exact representation of the ML landscape. K >= 3: the QUBO is a local approximation whose within-size ranking is unreliable for these models."
+    },
+    "K3_exhaustive_by_count": {
+      "3": {
+        "status": "evaluated",
+        "mode": "exhaustive",
+        "k": 3,
+        "n_selections": 316,
+        "mae": 0.28329862488723623,
+        "rmse": 0.3630218594621132,
+        "max_abs_error": 0.9101999638789786,
+        "mean_bias": -0.10380832297601299,
+        "true_delta_std": 0.37023188703336035,
+        "n_distinct_true_values": 198,
+        "normalised_rmse": 0.9805256439983585,
+        "pearson_r": 0.4863887053559654,
+        "spearman_rho": 0.5164606509806494,
+        "surrogate_top_pick": {
+          "mutations": [
+            "A9Y",
+            "A15Y",
+            "V17Y"
+          ],
+          "surrogate_delta": 0.34455992482912357,
+          "true_delta": -0.27413144414857943,
+          "true_rank": 164,
+          "out_of": 316,
+          "percentile": 48.253968253968246
+        },
+        "true_best": {
+          "mutations": [
+            "F12E",
+            "A15Y",
+            "V17Y"
+          ],
+          "true_delta": 0.7117511025053025,
+          "surrogate_delta": -0.03657052478623979
+        },
+        "interpretation": "surrogate_top_pick.true_rank is the metric that matters for optimisation: it is where the selection the QUBO considers best actually lands in the true ML ranking. A rank near 1 means the surrogate is a usable proxy; a rank near out_of means it is actively misleading at this mutation count."
+      }
+    },
+    "end_to_end_K2": {
+      "status": "evaluated",
+      "n_feasible_selections_scored": 102,
+      "budget_k": 2,
+      "budget_mode": "at_most_k",
+      "qubo_optimum": {
+        "mutations": [
+          "A15Y",
+          "V17Y"
+        ],
+        "sequence": "GIGKFLHSAKKFGKYFYGEIMNS",
+        "true_delta_score": 0.9577499214917207,
+        "true_rank": 1,
+        "out_of": 102
+      },
+      "true_best": {
+        "mutations": [
+          "A15Y",
+          "V17Y"
+        ],
+        "sequence": "GIGKFLHSAKKFGKYFYGEIMNS",
+        "true_delta_score": 0.9577499214917207
+      },
+      "qubo_optimum_is_true_best": true,
+      "expected_to_pass": true,
+      "interpretation": "with K <= 2 the surrogate is exact, so this must pass; a failure there would indicate an implementation bug. For K >= 3 a failure is a genuine property of the second-order approximation, not a bug."
+    },
+    "end_to_end_K3": {
+      "status": "evaluated",
+      "n_feasible_selections_scored": 418,
+      "budget_k": 3,
+      "budget_mode": "at_most_k",
+      "qubo_optimum": {
+        "mutations": [
+          "A15Y",
+          "V17Y"
+        ],
+        "sequence": "GIGKFLHSAKKFGKYFYGEIMNS",
+        "true_delta_score": 0.9577499214917207,
+        "true_rank": 1,
+        "out_of": 418
+      },
+      "true_best": {
+        "mutations": [
+          "A15Y",
+          "V17Y"
+        ],
+        "sequence": "GIGKFLHSAKKFGKYFYGEIMNS",
+        "true_delta_score": 0.9577499214917207
+      },
+      "qubo_optimum_is_true_best": true,
+      "expected_to_pass": false,
+      "interpretation": "with K <= 2 the surrogate is exact, so this must pass; a failure there would indicate an implementation bug. For K >= 3 a failure is a genuine property of the second-order approximation, not a bug."
+    }
+  },
+  "Q3_qaoa_vs_exact": {
+    "question": "How close does QAOA get to the exact optimum on small instances?",
+    "metric_note": "absolute energy gap is primary; success probability is the sum over ALL degenerate optima and is reported as a multiple of uniform random sampling",
+    "K2": {
+      "uniform_random_success": 1.52587890625e-05,
+      "by_depth": {
+        "p1": {
+          "p": 1,
+          "optimizer": "COBYLA",
+          "final_expectation": 67.52792160038246,
+          "absolute_gap": -7.673861546209082e-13,
+          "success_probability": 0.00356703104515581,
+          "success_probability_vs_uniform": 233.76894657533117,
+          "feasible_probability": 0.4064858182151183,
+          "logical_depth": 32,
+          "transpiled_depth": 95,
+          "logical_two_qubit_gates": 120,
+          "transpiled_two_qubit_gates": 240,
+          "runtime_seconds": 0.7265106040000546,
+          "n_function_evaluations": 112
+        },
+        "p2": {
+          "p": 2,
+          "optimizer": "COBYLA",
+          "final_expectation": 31.596283590590883,
+          "absolute_gap": -7.673861546209082e-13,
+          "success_probability": 0.004393209336011489,
+          "success_probability_vs_uniform": 287.91336704484894,
+          "feasible_probability": 0.5531650840907799,
+          "logical_depth": 63,
+          "transpiled_depth": 188,
+          "logical_two_qubit_gates": 240,
+          "transpiled_two_qubit_gates": 480,
+          "runtime_seconds": 5.470234548999997,
+          "n_function_evaluations": 489
+        },
+        "p3": {
+          "p": 3,
+          "optimizer": "COBYLA",
+          "final_expectation": 27.93471334178116,
+          "absolute_gap": -7.673861546209082e-13,
+          "success_probability": 0.004196650180361114,
+          "success_probability_vs_uniform": 275.03166622014595,
+          "feasible_probability": 0.5371893405837707,
+          "logical_depth": 94,
+          "transpiled_depth": 281,
+          "logical_two_qubit_gates": 360,
+          "transpiled_two_qubit_gates": 720,
+          "runtime_seconds": 13.593427507000001,
+          "n_function_evaluations": 900
+        }
+      }
+    },
+    "K3": {
+      "uniform_random_success": 1.52587890625e-05,
+      "by_depth": {
+        "p1": {
+          "p": 1,
+          "optimizer": "COBYLA",
+          "final_expectation": 96.50746286145895,
+          "absolute_gap": -4.263256414560601e-13,
+          "success_probability": 0.0006641450539845217,
+          "success_probability_vs_uniform": 43.525410257929614,
+          "feasible_probability": 0.3015116394829947,
+          "logical_depth": 32,
+          "transpiled_depth": 95,
+          "logical_two_qubit_gates": 120,
+          "transpiled_two_qubit_gates": 240,
+          "runtime_seconds": 0.8349474529998133,
+          "n_function_evaluations": 133
+        },
+        "p2": {
+          "p": 2,
+          "optimizer": "COBYLA",
+          "final_expectation": 47.37124221198063,
+          "absolute_gap": -4.263256414560601e-13,
+          "success_probability": 0.0010383473075983461,
+          "success_probability_vs_uniform": 68.04912915076521,
+          "feasible_probability": 0.4271532453258546,
+          "logical_depth": 63,
+          "transpiled_depth": 188,
+          "logical_two_qubit_gates": 240,
+          "transpiled_two_qubit_gates": 480,
+          "runtime_seconds": 9.131915456999877,
+          "n_function_evaluations": 900
+        },
+        "p3": {
+          "p": 3,
+          "optimizer": "COBYLA",
+          "final_expectation": 39.34368101970324,
+          "absolute_gap": -4.263256414560601e-13,
+          "success_probability": 0.00023668073929282706,
+          "success_probability_vs_uniform": 15.511108930294714,
+          "feasible_probability": 0.456813748986645,
+          "logical_depth": 94,
+          "transpiled_depth": 281,
+          "logical_two_qubit_gates": 360,
+          "transpiled_two_qubit_gates": 720,
+          "runtime_seconds": 12.849615828999958,
+          "n_function_evaluations": 900
+        }
+      }
+    }
+  },
+  "Q4_classical_comparison": {
+    "question": "How does QAOA compare with classical optimization on identical QUBOs?",
+    "note": "all solvers receive the same QUBO and no biological information. QAOA runtimes are statevector-simulation cost, not quantum execution cost, so they are not a speed comparison.",
+    "K2_classical": {
+      "simulated_annealing": {
+        "best_energy": -0.9577499214921943,
+        "absolute_gap": -4.547473508864641e-13,
+        "reached_optimum": true,
+        "runtime_seconds": 0.6824689729999136,
+        "n_evaluations": 320010,
+        "mean_energy": -0.9577499214916699,
+        "std_energy": 3.676439032520641e-13
+      },
+      "greedy": {
+        "best_energy": -0.9577499214917253,
+        "absolute_gap": 1.4210854715202004e-14,
+        "reached_optimum": true,
+        "runtime_seconds": 0.00010576800002581876,
+        "n_evaluations": 49,
+        "mean_energy": null,
+        "std_energy": null
+      },
+      "local_search": {
+        "best_energy": -0.051346504785243496,
+        "absolute_gap": 0.906403416706496,
+        "reached_optimum": false,
+        "runtime_seconds": 0.0033031230000233336,
+        "n_evaluations": 2324,
+        "mean_energy": 0.5865683607914903,
+        "std_energy": 0.26757706424020106
+      },
+      "random_sampling": {
+        "best_energy": -0.9577499214917395,
+        "absolute_gap": 0.0,
+        "reached_optimum": true,
+        "runtime_seconds": 0.004722194000009949,
+        "n_evaluations": 50000,
+        "mean_energy": -0.7298091681125982,
+        "std_energy": 0.3348531827040639
+      }
+    },
+    "K3_classical": {
+      "simulated_annealing": {
+        "best_energy": -0.9577499214927059,
+        "absolute_gap": -9.947598300641403e-13,
+        "reached_optimum": true,
+        "runtime_seconds": 0.6580351089999112,
+        "n_evaluations": 320010,
+        "mean_energy": -0.9548152939744483,
+        "std_energy": 0.00880388255107789
+      },
+      "greedy": {
+        "best_energy": -0.8857301920244822,
+        "absolute_gap": 0.0720197294672289,
+        "reached_optimum": false,
+        "runtime_seconds": 9.176200001093093e-05,
+        "n_evaluations": 49,
+        "mean_energy": null,
+        "std_energy": null
+      },
+      "local_search": {
+        "best_energy": -0.26951713281584944,
+        "absolute_gap": 0.6882327886758617,
+        "reached_optimum": false,
+        "runtime_seconds": 0.0028317859998878703,
+        "n_evaluations": 2004,
+        "mean_energy": -0.0443545004195073,
+        "std_energy": 0.25360044840094176
+      },
+      "random_sampling": {
+        "best_energy": -0.9284036463224652,
+        "absolute_gap": 0.029346275169245928,
+        "reached_optimum": false,
+        "runtime_seconds": 0.0036680329999398964,
+        "n_evaluations": 50000,
+        "mean_energy": -0.7776624318380982,
+        "std_energy": 0.26693390301055725
+      }
+    }
+  },
+  "Q5_depth": {
+    "question": "How does increasing QAOA depth affect solution quality and circuit cost?",
+    "K3_depth_study": [
+      {
+        "p": 1,
+        "optimizer": "COBYLA",
+        "final_expectation": 96.50746286145895,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.0006641450539845217,
+        "success_probability_vs_uniform": 43.525410257929614,
+        "feasible_probability": 0.3015116394829947,
+        "logical_depth": 32,
+        "transpiled_depth": 95,
+        "logical_two_qubit_gates": 120,
+        "transpiled_two_qubit_gates": 240,
+        "runtime_seconds": 0.8349474529998133,
+        "n_function_evaluations": 133
+      },
+      {
+        "p": 1,
+        "optimizer": "Powell",
+        "final_expectation": 96.50746270435943,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.0006641433869146022,
+        "success_probability_vs_uniform": 43.52530100483537,
+        "feasible_probability": 0.30151619849248035,
+        "logical_depth": 32,
+        "transpiled_depth": 95,
+        "logical_two_qubit_gates": 120,
+        "transpiled_two_qubit_gates": 240,
+        "runtime_seconds": 1.2218320459999177,
+        "n_function_evaluations": 255
+      },
+      {
+        "p": 2,
+        "optimizer": "COBYLA",
+        "final_expectation": 47.37124221198063,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.0010383473075983461,
+        "success_probability_vs_uniform": 68.04912915076521,
+        "feasible_probability": 0.4271532453258546,
+        "logical_depth": 63,
+        "transpiled_depth": 188,
+        "logical_two_qubit_gates": 240,
+        "transpiled_two_qubit_gates": 480,
+        "runtime_seconds": 9.131915456999877,
+        "n_function_evaluations": 900
+      },
+      {
+        "p": 2,
+        "optimizer": "Powell",
+        "final_expectation": 50.52360989675319,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.0006105724489282613,
+        "success_probability_vs_uniform": 40.01447601296253,
+        "feasible_probability": 0.3829837178439223,
+        "logical_depth": 63,
+        "transpiled_depth": 188,
+        "logical_two_qubit_gates": 240,
+        "transpiled_two_qubit_gates": 480,
+        "runtime_seconds": 19.99804433999998,
+        "n_function_evaluations": 2065
+      },
+      {
+        "p": 3,
+        "optimizer": "COBYLA",
+        "final_expectation": 39.34368101970324,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.00023668073929282706,
+        "success_probability_vs_uniform": 15.511108930294714,
+        "feasible_probability": 0.456813748986645,
+        "logical_depth": 94,
+        "transpiled_depth": 281,
+        "logical_two_qubit_gates": 360,
+        "transpiled_two_qubit_gates": 720,
+        "runtime_seconds": 12.849615828999958,
+        "n_function_evaluations": 900
+      },
+      {
+        "p": 3,
+        "optimizer": "Powell",
+        "final_expectation": 28.12173284454847,
+        "absolute_gap": 0.07201972946708679,
+        "success_probability": 1.3524005935272384e-05,
+        "success_probability_vs_uniform": 0.886309252974011,
+        "feasible_probability": 0.5830563968935212,
+        "logical_depth": 94,
+        "transpiled_depth": 281,
+        "logical_two_qubit_gates": 360,
+        "transpiled_two_qubit_gates": 720,
+        "runtime_seconds": 48.21430604500006,
+        "n_function_evaluations": 3323
+      }
+    ]
+  },
+  "Q6_noise": {
+    "question": "How much does realistic noise degrade the solution?",
+    "K3_noise": {
+      "noiseless": {
+        "expectation": 47.81497302089894,
+        "best_sampled_energy": -0.9577499214921374,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.0008544921875,
+        "feasible_probability": 0.4246826171875,
+        "n_distinct_outcomes": 1887
+      },
+      "low_noise": {
+        "expectation": 69.64387273618023,
+        "best_sampled_energy": -0.9577499214921374,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.0010986328125,
+        "feasible_probability": 0.374755859375,
+        "n_distinct_outcomes": 2506
+      },
+      "representative": {
+        "expectation": 225.2881147770998,
+        "best_sampled_energy": -0.9577499214921374,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.0008544921875,
+        "feasible_probability": 0.2012939453125,
+        "n_distinct_outcomes": 4588
+      },
+      "high_noise": {
+        "expectation": 688.5843315264735,
+        "best_sampled_energy": -0.9577499214921374,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.000244140625,
+        "feasible_probability": 0.0614013671875,
+        "n_distinct_outcomes": 6930
+      },
+      "thermal_relaxation": {
+        "expectation": 78.08028723776695,
+        "best_sampled_energy": -0.9577499214921374,
+        "absolute_gap": -4.263256414560601e-13,
+        "success_probability": 0.000732421875,
+        "feasible_probability": 0.3292236328125,
+        "n_distinct_outcomes": 2664
+      }
+    }
+  },
+  "Q7_hardware": {
+    "question": "How does real hardware compare with ideal and noisy simulation, if hardware execution is available?",
+    "status": "not evaluated",
+    "detail": {
+      "reason": "hardware execution not requested and no IBM token in environment"
+    }
+  },
+  "claims_not_made": [
+    "No quantum advantage is claimed. The instances are tiny, QAOA runs on a simulator, and the closest comparable study found QAOA matched by random sampling on a peptide problem.",
+    "No novelty is claimed for quantum optimization of nonhemolytic AMPs; that was done and wet-lab validated in 2023 (see research/papers.md section 1.1).",
+    "No experimental biological efficacy is claimed for any sequence produced here."
+  ]
+}

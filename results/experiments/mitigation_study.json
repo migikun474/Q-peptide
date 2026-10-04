@@ -1,0 +1,341 @@
+{
+  "experiment": "error_mitigation_study",
+  "method": "tensored readout-error inversion (per-qubit confusion matrices)",
+  "hardware_side_methods": "dynamical decoupling (XY4) and gate/measurement twirling are additionally enabled for real-QPU execution via Qiskit Runtime options; they cannot be exercised on Aer and are therefore not measured here",
+  "n_qubits": 12,
+  "budget_k": 3,
+  "shots": 8192,
+  "seed": 20261004,
+  "exact_optimal_energy": -0.8901468731555724,
+  "uniform_random_success_probability": 0.000244140625,
+  "control_noiseless_calibration": {
+    "mean_p01": 0.0,
+    "mean_p10": 0.0,
+    "passed": true
+  },
+  "results": {
+    "p1": {
+      "low": {
+        "status": "evaluated",
+        "shots": 8192,
+        "calibration": {
+          "n_qubits": 12,
+          "shots_per_calibration_circuit": 4096,
+          "source": "two calibration circuits (|0..0>, |1..1>) on aer_simulator",
+          "mean_p01": 0.014628092447916666,
+          "mean_p10": 0.01495361328125,
+          "max_p01": 0.0166015625,
+          "max_p10": 0.019287109375,
+          "assumption": "readout errors are independent across qubits (tensored model); this ignores correlated readout crosstalk"
+        },
+        "raw": {
+          "expectation": 47.29214090593635,
+          "success_probability": 0.0025634765625,
+          "feasible_probability": 0.2811279296875
+        },
+        "mitigated": {
+          "expectation": 47.50600967928855,
+          "success_probability": 0.002718149376417479,
+          "feasible_probability": 0.2886642782683643
+        },
+        "improvement": {
+          "success_probability_ratio": 1.0603371281719993,
+          "feasible_probability_delta": 0.007536348580864327,
+          "expectation_delta": 0.21386877335220333
+        },
+        "method": "tensored readout-error inversion (per-qubit confusion matrices)",
+        "caveat": "readout mitigation corrects MEASUREMENT error only. It cannot undo gate error accumulated during the circuit, which dominates at this two-qubit gate count",
+        "noise_spec": {
+          "name": "depolarizing_representative",
+          "one_qubit_depolarizing_error": 0.0003,
+          "two_qubit_depolarizing_error": 0.001,
+          "readout_error": 0.015,
+          "description": "all-qubit depolarizing error on one- and two-qubit gates plus symmetric readout error; rates are representative of current superconducting hardware, not a specific device calibration"
+        }
+      },
+      "representative": {
+        "status": "evaluated",
+        "shots": 8192,
+        "calibration": {
+          "n_qubits": 12,
+          "shots_per_calibration_circuit": 4096,
+          "source": "two calibration circuits (|0..0>, |1..1>) on aer_simulator",
+          "mean_p01": 0.014628092447916666,
+          "mean_p10": 0.01495361328125,
+          "max_p01": 0.0166015625,
+          "max_p10": 0.019287109375,
+          "assumption": "readout errors are independent across qubits (tensored model); this ignores correlated readout crosstalk"
+        },
+        "raw": {
+          "expectation": 62.95525884092379,
+          "success_probability": 0.001708984375,
+          "feasible_probability": 0.2423095703125
+        },
+        "mitigated": {
+          "expectation": 63.50562244384936,
+          "success_probability": 0.0017372578481852543,
+          "feasible_probability": 0.24823911948862354
+        },
+        "improvement": {
+          "success_probability_ratio": 1.0165440208809717,
+          "feasible_probability_delta": 0.005929549176123539,
+          "expectation_delta": 0.5503636029255716
+        },
+        "method": "tensored readout-error inversion (per-qubit confusion matrices)",
+        "caveat": "readout mitigation corrects MEASUREMENT error only. It cannot undo gate error accumulated during the circuit, which dominates at this two-qubit gate count",
+        "noise_spec": {
+          "name": "depolarizing_representative",
+          "one_qubit_depolarizing_error": 0.0003,
+          "two_qubit_depolarizing_error": 0.01,
+          "readout_error": 0.015,
+          "description": "all-qubit depolarizing error on one- and two-qubit gates plus symmetric readout error; rates are representative of current superconducting hardware, not a specific device calibration"
+        }
+      },
+      "high": {
+        "status": "evaluated",
+        "shots": 8192,
+        "calibration": {
+          "n_qubits": 12,
+          "shots_per_calibration_circuit": 4096,
+          "source": "two calibration circuits (|0..0>, |1..1>) on aer_simulator",
+          "mean_p01": 0.014628092447916666,
+          "mean_p10": 0.01495361328125,
+          "max_p01": 0.0166015625,
+          "max_p10": 0.019287109375,
+          "assumption": "readout errors are independent across qubits (tensored model); this ignores correlated readout crosstalk"
+        },
+        "raw": {
+          "expectation": 105.36379743772292,
+          "success_probability": 0.001220703125,
+          "feasible_probability": 0.1810302734375
+        },
+        "mitigated": {
+          "expectation": 107.44490194529732,
+          "success_probability": 0.0011993581138400261,
+          "feasible_probability": 0.1841274195062529
+        },
+        "improvement": {
+          "success_probability_ratio": 0.9825141668577494,
+          "feasible_probability_delta": 0.0030971460687528873,
+          "expectation_delta": 2.081104507574395
+        },
+        "method": "tensored readout-error inversion (per-qubit confusion matrices)",
+        "caveat": "readout mitigation corrects MEASUREMENT error only. It cannot undo gate error accumulated during the circuit, which dominates at this two-qubit gate count",
+        "noise_spec": {
+          "name": "depolarizing_representative",
+          "one_qubit_depolarizing_error": 0.0003,
+          "two_qubit_depolarizing_error": 0.03,
+          "readout_error": 0.015,
+          "description": "all-qubit depolarizing error on one- and two-qubit gates plus symmetric readout error; rates are representative of current superconducting hardware, not a specific device calibration"
+        }
+      },
+      "thermal": {
+        "status": "evaluated",
+        "shots": 8192,
+        "calibration": {
+          "n_qubits": 12,
+          "shots_per_calibration_circuit": 4096,
+          "source": "two calibration circuits (|0..0>, |1..1>) on aer_simulator",
+          "mean_p01": 0.014628092447916666,
+          "mean_p10": 0.014973958333333334,
+          "max_p01": 0.0166015625,
+          "max_p10": 0.019287109375,
+          "assumption": "readout errors are independent across qubits (tensored model); this ignores correlated readout crosstalk"
+        },
+        "raw": {
+          "expectation": 48.792953676140286,
+          "success_probability": 0.001708984375,
+          "feasible_probability": 0.277099609375
+        },
+        "mitigated": {
+          "expectation": 48.9077831483914,
+          "success_probability": 0.0017011907178551388,
+          "feasible_probability": 0.2856782968211865
+        },
+        "improvement": {
+          "success_probability_ratio": 0.9954395971906641,
+          "feasible_probability_delta": 0.008578687446186506,
+          "expectation_delta": 0.11482947225111673
+        },
+        "method": "tensored readout-error inversion (per-qubit confusion matrices)",
+        "caveat": "readout mitigation corrects MEASUREMENT error only. It cannot undo gate error accumulated during the circuit, which dominates at this two-qubit gate count",
+        "noise_spec": {
+          "name": "thermal_relaxation",
+          "one_qubit_depolarizing_error": 0.00023333333333333333,
+          "two_qubit_depolarizing_error": 0.003,
+          "readout_error": 0.015,
+          "description": "T1=150.0us, T2=100.0us thermal relaxation with 35.0ns/450.0ns gate times plus readout error"
+        }
+      }
+    },
+    "p2": {
+      "low": {
+        "status": "evaluated",
+        "shots": 8192,
+        "calibration": {
+          "n_qubits": 12,
+          "shots_per_calibration_circuit": 4096,
+          "source": "two calibration circuits (|0..0>, |1..1>) on aer_simulator",
+          "mean_p01": 0.014628092447916666,
+          "mean_p10": 0.01495361328125,
+          "max_p01": 0.0166015625,
+          "max_p10": 0.019287109375,
+          "assumption": "readout errors are independent across qubits (tensored model); this ignores correlated readout crosstalk"
+        },
+        "raw": {
+          "expectation": 29.71846909004298,
+          "success_probability": 0.00390625,
+          "feasible_probability": 0.3812255859375
+        },
+        "mitigated": {
+          "expectation": 28.70866063947777,
+          "success_probability": 0.004248958031801321,
+          "feasible_probability": 0.4027643522878643
+        },
+        "improvement": {
+          "success_probability_ratio": 1.0877332561411381,
+          "feasible_probability_delta": 0.02153876635036428,
+          "expectation_delta": -1.0098084505652096
+        },
+        "method": "tensored readout-error inversion (per-qubit confusion matrices)",
+        "caveat": "readout mitigation corrects MEASUREMENT error only. It cannot undo gate error accumulated during the circuit, which dominates at this two-qubit gate count",
+        "noise_spec": {
+          "name": "depolarizing_representative",
+          "one_qubit_depolarizing_error": 0.0003,
+          "two_qubit_depolarizing_error": 0.001,
+          "readout_error": 0.015,
+          "description": "all-qubit depolarizing error on one- and two-qubit gates plus symmetric readout error; rates are representative of current superconducting hardware, not a specific device calibration"
+        }
+      },
+      "representative": {
+        "status": "evaluated",
+        "shots": 8192,
+        "calibration": {
+          "n_qubits": 12,
+          "shots_per_calibration_circuit": 4096,
+          "source": "two calibration circuits (|0..0>, |1..1>) on aer_simulator",
+          "mean_p01": 0.014628092447916666,
+          "mean_p10": 0.01495361328125,
+          "max_p01": 0.0166015625,
+          "max_p10": 0.019287109375,
+          "assumption": "readout errors are independent across qubits (tensored model); this ignores correlated readout crosstalk"
+        },
+        "raw": {
+          "expectation": 60.02734111147431,
+          "success_probability": 0.0020751953125,
+          "feasible_probability": 0.2860107421875
+        },
+        "mitigated": {
+          "expectation": 60.33613617240396,
+          "success_probability": 0.0021725215240501273,
+          "feasible_probability": 0.29977990697556717
+        },
+        "improvement": {
+          "success_probability_ratio": 1.0468997838246261,
+          "feasible_probability_delta": 0.013769164788067167,
+          "expectation_delta": 0.30879506092965414
+        },
+        "method": "tensored readout-error inversion (per-qubit confusion matrices)",
+        "caveat": "readout mitigation corrects MEASUREMENT error only. It cannot undo gate error accumulated during the circuit, which dominates at this two-qubit gate count",
+        "noise_spec": {
+          "name": "depolarizing_representative",
+          "one_qubit_depolarizing_error": 0.0003,
+          "two_qubit_depolarizing_error": 0.01,
+          "readout_error": 0.015,
+          "description": "all-qubit depolarizing error on one- and two-qubit gates plus symmetric readout error; rates are representative of current superconducting hardware, not a specific device calibration"
+        }
+      },
+      "high": {
+        "status": "evaluated",
+        "shots": 8192,
+        "calibration": {
+          "n_qubits": 12,
+          "shots_per_calibration_circuit": 4096,
+          "source": "two calibration circuits (|0..0>, |1..1>) on aer_simulator",
+          "mean_p01": 0.014628092447916666,
+          "mean_p10": 0.01495361328125,
+          "max_p01": 0.0166015625,
+          "max_p10": 0.019287109375,
+          "assumption": "readout errors are independent across qubits (tensored model); this ignores correlated readout crosstalk"
+        },
+        "raw": {
+          "expectation": 136.6175582150786,
+          "success_probability": 0.000732421875,
+          "feasible_probability": 0.1468505859375
+        },
+        "mitigated": {
+          "expectation": 139.3593044199502,
+          "success_probability": 0.000694868582265464,
+          "feasible_probability": 0.14790338438788364
+        },
+        "improvement": {
+          "success_probability_ratio": 0.9487272376531135,
+          "feasible_probability_delta": 0.0010527984503836407,
+          "expectation_delta": 2.7417462048716175
+        },
+        "method": "tensored readout-error inversion (per-qubit confusion matrices)",
+        "caveat": "readout mitigation corrects MEASUREMENT error only. It cannot undo gate error accumulated during the circuit, which dominates at this two-qubit gate count",
+        "noise_spec": {
+          "name": "depolarizing_representative",
+          "one_qubit_depolarizing_error": 0.0003,
+          "two_qubit_depolarizing_error": 0.03,
+          "readout_error": 0.015,
+          "description": "all-qubit depolarizing error on one- and two-qubit gates plus symmetric readout error; rates are representative of current superconducting hardware, not a specific device calibration"
+        }
+      },
+      "thermal": {
+        "status": "evaluated",
+        "shots": 8192,
+        "calibration": {
+          "n_qubits": 12,
+          "shots_per_calibration_circuit": 4096,
+          "source": "two calibration circuits (|0..0>, |1..1>) on aer_simulator",
+          "mean_p01": 0.014628092447916666,
+          "mean_p10": 0.014973958333333334,
+          "max_p01": 0.0166015625,
+          "max_p10": 0.019287109375,
+          "assumption": "readout errors are independent across qubits (tensored model); this ignores correlated readout crosstalk"
+        },
+        "raw": {
+          "expectation": 31.583409676665134,
+          "success_probability": 0.002685546875,
+          "feasible_probability": 0.3587646484375
+        },
+        "mitigated": {
+          "expectation": 30.841598880054896,
+          "success_probability": 0.0028063130858662477,
+          "feasible_probability": 0.37563253989785694
+        },
+        "improvement": {
+          "success_probability_ratio": 1.0449689454280138,
+          "feasible_probability_delta": 0.016867891460356943,
+          "expectation_delta": -0.7418107966102383
+        },
+        "method": "tensored readout-error inversion (per-qubit confusion matrices)",
+        "caveat": "readout mitigation corrects MEASUREMENT error only. It cannot undo gate error accumulated during the circuit, which dominates at this two-qubit gate count",
+        "noise_spec": {
+          "name": "thermal_relaxation",
+          "one_qubit_depolarizing_error": 0.00023333333333333333,
+          "two_qubit_depolarizing_error": 0.003,
+          "readout_error": 0.015,
+          "description": "T1=150.0us, T2=100.0us thermal relaxation with 35.0ns/450.0ns gate times plus readout error"
+        }
+      }
+    }
+  },
+  "interpretation": "readout mitigation gives a consistent but modest improvement. That is the expected result and not a failure of the method: it corrects MEASUREMENT error only, while at these two-qubit gate counts the dominant loss is gate error accumulated during the circuit, which no post-processing can undo.",
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.39",
+    "packages": {
+      "numpy": "2.5.3",
+      "pandas": "3.0.6",
+      "scipy": "1.18.1",
+      "sklearn": "1.9.1",
+      "xgboost": "3.4.1",
+      "qiskit": "2.5.2",
+      "qiskit_aer": "0.17.2",
+      "qiskit_ibm_runtime": "0.50.0"
+    }
+  }
+}

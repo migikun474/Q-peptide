@@ -822,42 +822,6 @@ mapping over **every** basis state; the fast simulator against Qiskit's `Stateve
 
 ---
 
-## 9. Limitations and claims not made
-
-### Claims this project does not make
-
-1. **No quantum advantage.** Instances are tiny, QAOA runs on a simulator, and simulated
-   annealing reaches the exact optimum at every size tested.
-2. **No novelty for quantum AMP design.** Quantum optimization of nonhemolytic AMPs was
-   done and wet-lab validated in 2023 (Tučs et al.). What differs here is the
-   *exactly-computed* mutation-space QUBO, the measured surrogate error, and exact-optimum
-   benchmarking.
-3. **No experimental biological efficacy.** Every sequence produced is a model-predicted
-   computational candidate.
-4. **No claim that the models are strong.** Hemolysis beats a mean baseline by 3.5%;
-   mutation-direction accuracy is ≈59%.
-
-### Known limitations
-
-| # | limitation |
-|---|---|
-| 1 | The **hemolysis model is weak** — every hemolysis conclusion inherits this |
-| 2 | **Mutation-effect prediction is weak** (≈59% directional); the Δᵢ are informative but noisy |
-| 3 | The **surrogate degrades at ≥3 mutations**; exact only for K≤2 |
-| 4 | **No experimental validation** |
-| 5 | Labels parsed from **free text**; 2,646 statements dropped, possibly not at random |
-| 6 | **Min-MIC aggregation** biases toward peptides tested on susceptible organisms |
-| 7 | Identity clustering is a **CD-HIT reimplementation**, not CD-HIT |
-| 8 | Models trained on *natural* peptides, applied to *point mutants* — now measured (§4.8) |
-| 9 | A scalar α/β encodes one trade-off preference; mitigated by Pareto reporting |
-| 10 | Reported uncertainty is **model** uncertainty, never experimental error |
-
-A full accounting — including **two claims that were wrong before being corrected** — is in
-[`docs/IMPLEMENTATION_AUDIT.md`](docs/IMPLEMENTATION_AUDIT.md).
-
-> **The honest one-liner:** a correctly-implemented, fully verified quantum optimization
-> pipeline whose scientific limits have been measured rather than assumed — including the
-> limits that make it look bad.
 
 ---
 
@@ -885,8 +849,7 @@ Prior work this project builds on, and is careful not to claim credit for:
 
 Full annotated bibliography: [`research/papers.md`](research/papers.md).
 
-Built with [Qiskit](https://qiskit.org) and the
-[Claude Scientific Skills](https://github.com/DenDen047/claude-scientific-skills) collection.
+Built with [Qiskit](https://qiskit.org).
 
 ## Licence
 

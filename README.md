@@ -64,18 +64,24 @@ residues cannot occupy the same position.
 
 That is a constrained quadratic binary optimization problem:
 
-$$\max_{x}\;\; \widehat{\Delta S}(x) = \sum_i \Delta_i x_i + \sum_{i<j} \Delta_{ij} x_i x_j
-\qquad\text{s.t.}\qquad \sum_i x_i \le K,\quad x_i + x_j \le 1,\quad x_i \in \{0,1\}$$
+```math
+\max_{x}\;\; \widehat{\Delta S}(x) = \sum_i \Delta_i x_i + \sum_{i<j} \Delta_{ij} x_i x_j
+\qquad\text{s.t.}\qquad \sum_i x_i \le K,\quad x_i + x_j \le 1,\quad x_i \in \lbrace 0,1\rbrace 
+```
 
 where $x_k = 1$ means "apply substitution $k$", and
 
-$$\Delta_i = S(P\oplus m_i) - S(P), \qquad
-\Delta_{ij} = S(P_{ij}) - S(P_i) - S(P_j) + S(P)$$
+```math
+\Delta_i = S(P\oplus m_i) - S(P), \qquad
+\Delta_{ij} = S(P_{ij}) - S(P_i) - S(P_j) + S(P)
+```
 
 $S$ combines predicted activity and predicted hemolysis, with the sign convention fixed in
 exactly one place:
 
-$$S(P) = \alpha\,\tilde A(P) - \beta\,\tilde H(P), \qquad \textbf{larger is better}$$
+```math
+S(P) = \alpha\,\tilde A(P) - \beta\,\tilde H(P), \qquad \textbf{larger is better}
+```
 
 > **The quantum computer is not simulating protein folding.** It solves the
 > subset-selection problem above.
@@ -231,7 +237,7 @@ exist and are never conflated — the UI states which one you are choosing.
 | `EXACTLY_K` | $\sum x_i = K$ | penalise $P(\sum x_i - K)^2$ | 0 |
 
 Slack weights are $[1, 2, 4, \ldots, K - 2^{m-1} + 1]$ — the top weight is **clamped** so
-the representable set is exactly $\{0,\ldots,K\}$ with no over-coverage. Asserted for every
+the representable set is exactly $\lbrace 0,\ldots,K\rbrace $ with no over-coverage. Asserted for every
 $K$ from 0 to 17.
 
 Same-position exclusivity needs no slack: the constraint is violated only by the single
@@ -243,8 +249,10 @@ an explicit graph — the optimizer never parses sequence strings.
 A hard-coded $P = 1000$ is rejected. The **exact span** of the unconstrained objective is
 computed by enumeration:
 
-$$\mathrm{span} = \max_x \widehat{\Delta S}(x) - \min_x \widehat{\Delta S}(x),
-\qquad P = \lambda\,(\mathrm{span} + \epsilon), \quad \lambda = 2$$
+```math
+\mathrm{span} = \max_x \widehat{\Delta S}(x) - \min_x \widehat{\Delta S}(x),
+\qquad P = \lambda\,(\mathrm{span} + \epsilon), \quad \lambda = 2
+```
 
 Any $P > \mathrm{span}$ is provably sufficient: satisfying the constraints costs at most
 $\mathrm{span}$, so a violation can never pay for itself. The looser triangle bound
@@ -257,9 +265,11 @@ passes is worthless.
 
 ### 3.3 Ising mapping, checked on every basis state
 
-$$\text{offset} = c + \tfrac12\textstyle\sum_i c_i + \tfrac14\sum_{i<j} c_{ij}, \qquad
+```math
+\text{offset} = c + \tfrac12\textstyle\sum_i c_i + \tfrac14\sum_{i<j} c_{ij}, \qquad
 h_i = -\tfrac12 c_i - \tfrac14\textstyle\sum_{j \ne i} c_{ij}, \qquad
-J_{ij} = \tfrac14 c_{ij}$$
+J_{ij} = \tfrac14 c_{ij}
+```
 
 The identity offset is **kept**, so $\langle x|H_C|x\rangle = E_{\mathrm{QUBO}}(x)$ exactly.
 Because $H_C$ is diagonal this is **exhaustively checkable** — 65,536 states at 16 qubits,
@@ -822,6 +832,42 @@ mapping over **every** basis state; the fast simulator against Qiskit's `Stateve
 
 ---
 
+## 9. Limitations and claims not made
+
+### Claims this project does not make
+
+1. **No quantum advantage.** Instances are tiny, QAOA runs on a simulator, and simulated
+   annealing reaches the exact optimum at every size tested.
+2. **No novelty for quantum AMP design.** Quantum optimization of nonhemolytic AMPs was
+   done and wet-lab validated in 2023 (Tučs et al.). What differs here is the
+   *exactly-computed* mutation-space QUBO, the measured surrogate error, and exact-optimum
+   benchmarking.
+3. **No experimental biological efficacy.** Every sequence produced is a model-predicted
+   computational candidate.
+4. **No claim that the models are strong.** Hemolysis beats a mean baseline by 3.5%;
+   mutation-direction accuracy is ≈59%.
+
+### Known limitations
+
+| # | limitation |
+|---|---|
+| 1 | The **hemolysis model is weak** — every hemolysis conclusion inherits this |
+| 2 | **Mutation-effect prediction is weak** (≈59% directional); the Δᵢ are informative but noisy |
+| 3 | The **surrogate degrades at ≥3 mutations**; exact only for K≤2 |
+| 4 | **No experimental validation** |
+| 5 | Labels parsed from **free text**; 2,646 statements dropped, possibly not at random |
+| 6 | **Min-MIC aggregation** biases toward peptides tested on susceptible organisms |
+| 7 | Identity clustering is a **CD-HIT reimplementation**, not CD-HIT |
+| 8 | Models trained on *natural* peptides, applied to *point mutants* — now measured (§4.8) |
+| 9 | A scalar α/β encodes one trade-off preference; mitigated by Pareto reporting |
+| 10 | Reported uncertainty is **model** uncertainty, never experimental error |
+
+A full accounting — including **two claims that were wrong before being corrected** — is in
+[`docs/IMPLEMENTATION_AUDIT.md`](docs/IMPLEMENTATION_AUDIT.md).
+
+> **The honest one-liner:** a correctly-implemented, fully verified quantum optimization
+> pipeline whose scientific limits have been measured rather than assumed — including the
+> limits that make it look bad.
 
 ---
 
@@ -849,7 +895,7 @@ Prior work this project builds on, and is careful not to claim credit for:
 
 Full annotated bibliography: [`research/papers.md`](research/papers.md).
 
-Built with [Qiskit](https://qiskit.org).
+Built with [Qiskit](https://qiskit.org) .
 
 ## Licence
 
